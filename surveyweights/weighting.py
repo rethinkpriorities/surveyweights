@@ -11,7 +11,7 @@ def get_census(census='US'):
         return None
 
 
-def run_weighting_iteration(df, census='US', verbose=True):
+def run_weighting_iteration(df, census='US', weigh_on=[], verbose=True):
     errors = []
     all_weights = {}
 
@@ -20,27 +20,34 @@ def run_weighting_iteration(df, census='US', verbose=True):
     
     census_data = get_census(census)
 
-    for var, data in census_data.items():
+    if weigh_on == []:
+        weigh_on = list(census_data.keys())
+
+    for var in weigh_on:
         if var in df.columns:
-            if verbose:
-                print('## {} ##'.format(var))
+            if var in census_data.keys():
+                data = census_data[var]
+                if verbose:
+                    print('## {} ##'.format(var))
+                    
+                weights = pd.Series(data) / (df[var].value_counts(normalize=True) * df.groupby(var)['weight'].mean())
                 
-            weights = pd.Series(data) / (df[var].value_counts(normalize=True) * df.groupby(var)['weight'].mean())
-            
-            if verbose:
-                print(weights)
+                if verbose:
+                    print(weights)
+                    
+                all_weights[var] = weights
+                error = (df[var].replace(weights).apply(lambda x: np.abs(1 - x)).sum() / df.shape[0])
+                errors.append(error)
                 
-            all_weights[var] = weights
-            error = (df[var].replace(weights).apply(lambda x: np.abs(1 - x)).sum() / df.shape[0])
-            errors.append(error)
-            
-            if verbose:
-                print('ERROR: {}'.format(error))
-                print('-')
-                print('-')
+                if verbose:
+                    print('ERROR: {}'.format(error))
+                    print('-')
+                    print('-')
+            elif verbose:
+                print('-- WARNING: did not weigh on {} as it is not in census'.format(var))
 
         elif verbose:
-            print('-- WARNING: did not weigh on {} as it is not present'.format(var))
+            print('-- WARNING: did not weigh on {} as it is not in survey dataframe'.format(var))
             
             
     total_error = np.array(errors).sum()    
@@ -59,7 +66,7 @@ def run_weighting_iteration(df, census='US', verbose=True):
             'total_error': total_error}
 
 
-def run_weighting_scheme(df, iters=10, census='US', verbose=True):
+def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=True):
     df['weight'] = df['age'].transform(lambda x: 1)
     output = run_weighting_iteration(df, verbose=False)
     weights = output['weights']
@@ -69,34 +76,48 @@ def run_weighting_scheme(df, iters=10, census='US', verbose=True):
     if verbose:
         print('ITER {}/{} - initialization - ERROR {}'.format(iterx, iters, total_error))
     
-    census = get_census(census)
+    census_data = get_census(census)
 
-    for var in census_data.keys():
+    if weigh_on == []:
+        weigh_on = list(census_data.keys())
+
+    for var in weigh_on:
         if var in df.columns:
-            df['weight'] = df['weight'] * df[var].astype(str).replace(weights[var])
-            output = run_weighting_iteration(df, census=census, verbose=False)
-            weights = output['weights']
-            total_error = output['total_error']
-            iterx += 1
-            if verbose:
-                print('ITER {}/{} - weight {} - ERROR {}'.format(iterx, iters, var, total_error))
+            if var in census_data.keys():
+                df['weight'] = df['weight'] * df[var].astype(str).replace(weights[var])
+                output = run_weighting_iteration(df,
+                                                 census=census,
+                                                 weigh_on=weigh_on,
+                                                 verbose=False)
+                weights = output['weights']
+                total_error = output['total_error']
+                iterx += 1
+                if verbose:
+                    print('ITER {}/{} - weight {} - ERROR {}'.format(iterx, iters, var, total_error))
+            elif verbose:
+                print('-- WARNING: did not weigh on {} as it is not in census'.format(var))
         elif verbose:
-            print('-- WARNING: did not weigh on {} as it is not present'.format(var))
+            print('-- WARNING: did not weigh on {} as it is not in survey dataframe'.format(var))
     
     for i in range(iters - iterx):
-        weigh_on = list(output['error_table'].keys())[0]
-        df['weight'] = df['weight'] * df[weigh_on].astype(str).replace(weights[weigh_on])
+        weigh_next = list(output['error_table'].keys())[0]
+        df['weight'] = df['weight'] * df[weigh_next].astype(str).replace(weights[weigh_next])
         output = run_weighting_iteration(df, census=census, verbose=False)
         weights = output['weights']
         total_error = output['total_error']
         iterx += 1
         if verbose:
-            print('ITER {}/{} - weight {} - ERROR {}'.format(iterx, iters, weigh_on, total_error))
+            print('ITER {}/{} - weight {} - ERROR {}'.format(iterx,
+                                                             iters,
+                                                             weigh_next,
+                                                             total_error))
         
     if verbose:
         max_weight = df['weight'].max()
         min_weight = df['weight'].min()
-        print('Done - FINAL ERROR {} - MAX WEIGHT {} - MIN WEIGHT {}'.format(total_error, max_weight, min_weight))
+        print('Done - FINAL ERROR {} - MAX WEIGHT {} - MIN WEIGHT {}'.format(total_error,
+                                                                             max_weight,
+                                                                             min_weight))
     
     return {'final_weights': df['weight'],
             'max_weight': max_weight,
