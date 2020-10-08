@@ -30,6 +30,7 @@ US_CENSUS = {'age': {'18-24': 0.1304,
                              'Urban': 0.3100,
                              'Rural': 0.1400}, # Urban-Rural from 2018 Pew https://www.pewsocialtrends.org/2018/05/22/demographic-and-economic-trends-in-urban-suburban-and-rural-communities/
 
+			 # Regions follow a custom definition, see `US_REGIONS_MAP`
              'region': {'Midwest': 0.2149,
                         'Mountains': 0.0539,
                         'Northeast': 0.1604,
@@ -45,4 +46,19 @@ US_CENSUS = {'age': {'18-24': 0.1304,
              'left_right': {'Liberal': 0.35,  # Sienna College / NYT poll <https://int.nyt.com/data/documenttools/nyt-siena-poll-methodology-june-2020/f6f533b4d07f4cbe/full.pdf>
                             'Moderate': 0.26,
                             'Conservative': 0.30}}
+
+
+US_REGIONS_MAP = {'Midwest': ['Illinois', 'Indiana', 'Iowa', 'Michigan', 'Minnesota',
+                              'Ohio', 'Pennsylvania', 'Wisconsin'],
+                  'Mountains': ['Alaska', 'Idaho', 'Kansas', 'Montana', 'Nebraska',
+                                'North Dakota', 'South Dakota', 'Utah', 'Wyoming', 'Oklahoma'],
+                  'Northeast': ['Connecticut', 'Delaware', 'District of Columbia (DC)',
+                                'Maine', 'Maryland', 'Massachusetts', 'New Hampshire',
+                                'New Jersey', 'New York', 'Rhode Island', 'Vermont']
+                  'Pacific': ['California', 'Hawaii', 'Oregon', 'Washington', 'Guam',
+                              'Puerto Rico', 'Virgin Islands'],
+                  'South': ['Missouri', 'Tennessee', 'Alabama', 'Arkansas', 'Kentucky',
+                            'Louisiana', 'Mississippi', 'Texas', 'Virginia', 'West Virginia'],
+                  'Southwest': ['Arizona', 'Colorado', 'Nevada', 'New Mexico'],
+                  'Southeast': ['Florida', 'Georgia', 'North Carolina', 'South Carolina']}
 
