@@ -1,11 +1,15 @@
+import numpy as np
 import pandas as pd
 
-from census import CENSUS
+from surveyweights.census import CENSUS
 
 
 def run_weighting_iteration(df, verbose=True):
     errors = []
     all_weights = {}
+
+    if 'weight' not in df.columns:
+        df['weight'] = df[df.columns[0]].transform(lambda x: 1)
     
     for var, data in CENSUS.items():
         if verbose:
