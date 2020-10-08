@@ -54,7 +54,7 @@ US_REGIONS_MAP = {'Midwest': ['Illinois', 'Indiana', 'Iowa', 'Michigan', 'Minnes
                                 'North Dakota', 'South Dakota', 'Utah', 'Wyoming', 'Oklahoma'],
                   'Northeast': ['Connecticut', 'Delaware', 'District of Columbia (DC)',
                                 'Maine', 'Maryland', 'Massachusetts', 'New Hampshire',
-                                'New Jersey', 'New York', 'Rhode Island', 'Vermont']
+                                'New Jersey', 'New York', 'Rhode Island', 'Vermont'],
                   'Pacific': ['California', 'Hawaii', 'Oregon', 'Washington', 'Guam',
                               'Puerto Rico', 'Virgin Islands'],
                   'South': ['Missouri', 'Tennessee', 'Alabama', 'Arkansas', 'Kentucky',
