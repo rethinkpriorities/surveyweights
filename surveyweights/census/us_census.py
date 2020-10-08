@@ -9,8 +9,9 @@ US_CENSUS = {'age': {'18-24': 0.1304,
                            'Graduated from high school': 0.2832,
                            'Less than high school': 0.1060}, # Education from 2019 ACS https://www.census.gov/data/tables/2019/demo/educational-attainment/cps-detailed-tables.html
 
-             'gender': {'Female': 0.51,
-                 'Male': 0.49}, # Gender from 2010 US Census https://www.census.gov/prod/cen2010/briefs/c2010br-03.pdf
+             'gender': {'Female': 0.507,
+                        'Male': 0.487,
+                        'Other': 0.006}, # Male-Female from 2010 US Census https://www.census.gov/prod/cen2010/briefs/c2010br-03.pdf, other from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5227946/
 
              'income': {'Under $15,000': 0.1020,
                         'Between $15,000 and $49,999': 0.2970,
