@@ -1,17 +1,26 @@
 import numpy as np
 import pandas as pd
 
-from surveyweights.census import CENSUS
+from surveyweights.census.us_census import US_CENSUS
 
 
-def run_weighting_iteration(df, verbose=True):
+def get_census(country='US'):
+    if country == 'US':
+        return US_CENSUS
+    else:
+        return None
+
+
+def run_weighting_iteration(df, country='US', verbose=True):
     errors = []
     all_weights = {}
 
     if 'weight' not in df.columns:
         df['weight'] = df[df.columns[0]].transform(lambda x: 1)
     
-    for var, data in CENSUS.items():
+    census = get_census(country)
+
+    for var, data in census.items():
         if verbose:
             print('## {} ##'.format(var))
             
@@ -45,7 +54,7 @@ def run_weighting_iteration(df, verbose=True):
             'total_error': total_error}
 
 
-def run_weighting_scheme(df, iters=10, verbose=True):
+def run_weighting_scheme(df, iters=10, country='US', verbose=True):
     df['weight'] = df['age'].transform(lambda x: 1)
     output = run_weighting_iteration(df, verbose=False)
     weights = output['weights']
@@ -55,9 +64,11 @@ def run_weighting_scheme(df, iters=10, verbose=True):
     if verbose:
         print('ITER {}/{} - initialization - ERROR {}'.format(iterx, iters, total_error))
     
-    for var in CENSUS.keys():
+    census = get_census(country)
+
+    for var in census.keys():
         df['weight'] = df['weight'] * df[var].astype(str).replace(weights[var])
-        output = run_weighting_iteration(df, verbose=False)
+        output = run_weighting_iteration(df, country=country, verbose=False)
         weights = output['weights']
         total_error = output['total_error']
         iterx += 1
@@ -67,7 +78,7 @@ def run_weighting_scheme(df, iters=10, verbose=True):
     for i in range(iters - iterx):
         weigh_on = list(output['error_table'].keys())[0]
         df['weight'] = df['weight'] * df[weigh_on].astype(str).replace(weights[weigh_on])
-        output = run_weighting_iteration(df, verbose=False)
+        output = run_weighting_iteration(df, country=country, verbose=False)
         weights = output['weights']
         total_error = output['total_error']
         iterx += 1
@@ -84,3 +95,4 @@ def run_weighting_scheme(df, iters=10, verbose=True):
             'min_weight': min_weight,
             'final_df': df,
             'error': total_error}
+
