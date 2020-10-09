@@ -1,7 +1,7 @@
 US_CENSUS = {'age': {'18-24': 0.1304,
-                      '25-44': 0.3505,
-                      '45-64': 0.3478,
-                      '65+': 0.1713}, # Age from 2010 US Census https://www.census.gov/prod/cen2010/briefs/c2010br-03.pdf
+                     '25-44': 0.3505,
+                     '45-64': 0.3478,
+                     '65+': 0.1713}, # Age from 2010 US Census https://www.census.gov/prod/cen2010/briefs/c2010br-03.pdf
 
              'education': {'Completed graduate school': 0.1204,
                            'Graduated from college': 0.2128,
@@ -39,9 +39,9 @@ US_CENSUS = {'age': {'18-24': 0.1304,
                         'Southwest': 0.0531,
                         'Southeast': 0.1398}, # Regions from 2019 Census estimates https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population
 
-             'vote2016': {'Hillary Clinton': 0.5723,
-                          'Donald Trump': 0.3108,
-                          'Other': 0.1168}, # 2016 US election popular vote as recorded by Wikipedia https://en.wikipedia.org/wiki/2016_United_States_presidential_election
+             'vote2016': {'Hillary Clinton': 0.482,
+                          'Donald Trump': 0.461,
+                          'Other': 0.057}, # 2016 US election popular vote as recorded by Wikipedia https://en.wikipedia.org/wiki/2016_United_States_presidential_election
 
              'left_right': {'Liberal': 0.35,  # Sienna College / NYT poll <https://int.nyt.com/data/documenttools/nyt-siena-poll-methodology-june-2020/f6f533b4d07f4cbe/full.pdf>
                             'Moderate': 0.26,
