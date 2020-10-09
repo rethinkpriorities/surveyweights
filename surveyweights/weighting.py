@@ -2,11 +2,14 @@ import numpy as np
 import pandas as pd
 
 from surveyweights.census.us_census import US_CENSUS
+from surveyweights.census.uk_census import UK_CENSUS
 
 
 def get_census(census='US'):
     if census == 'US':
         return US_CENSUS
+    elif census == 'UK':
+        return UK_CENSUS
     else:
         raise ValueError('{} census not found'.format(census))
 
@@ -82,6 +85,7 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
     df['weight'] = df['age'].transform(lambda x: 1)
     iterx = 1
     weights = None
+    last_var = None
     census_data = get_census(census)
 
     if weigh_on == []:
@@ -104,6 +108,7 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
                 correction = 1 / drift
                 df['weight'] *= correction
 
+                last_var = var
                 iterx += 1
                 if verbose >= 1:
                     print('ITER {}/{} - weight {} - ERROR {}'.format(iterx, iters, var, total_error))
@@ -114,7 +119,6 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
         if iterx > iters:
             break
     
-    last_var = var
     for i in range(iters - iterx):
         weigh_next = list(output['error_table'].keys())[0]
         if weigh_next == last_var:
