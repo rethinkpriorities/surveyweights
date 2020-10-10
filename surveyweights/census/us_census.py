@@ -45,7 +45,17 @@ US_CENSUS = {'age': {'18-24': 0.1304,
 
              'left_right': {'Liberal': 0.35,  # Sienna College / NYT poll <https://int.nyt.com/data/documenttools/nyt-siena-poll-methodology-june-2020/f6f533b4d07f4cbe/full.pdf>
                             'Moderate': 0.26,
-                            'Conservative': 0.30}}
+                            'Conservative': 0.30},
+
+             'gss_bible': {'Word of God': 0.31,
+                           'Inspired word': 0.473,
+                           'Book of fables' 0.217}, # From GSS 2018 https://gssdataexplorer.norc.org/variables/364/vshow
+
+             'gss_trust': {'Can trust': 0.331,
+                           'Can\'t be too careful': 0.669 }, # From GSS 2018 https://gssdataexplorer.norc.org/variables/441/vshow
+
+             'gss_spanking': {'Agree': 0.677,
+                              'Disagree': 0.323}} # From GSS 2018 https://gssdataexplorer.norc.org/trends/Gender%20&%20Marriage?measure=spanking
 
 
 US_REGIONS_MAP = {'Midwest': ['Illinois', 'Indiana', 'Iowa', 'Michigan', 'Minnesota',
