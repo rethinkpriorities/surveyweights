@@ -2,7 +2,7 @@
 
 Apply Census weighting to survey data.
 
-#### Example Usage
+### Example Usage
 
 ```Python
 from surveyweights import run_weighting_scheme, run_weighting_iteration
@@ -26,7 +26,7 @@ print(survey_data['outcome'].value_counts(normalize=True) * 100)
 print(survey_data['outcome'].value_counts(normalize=True) * survey_data.groupby('outcome')['weight'].mean() * 100)
 ```
 
-#### Debugging
+### Debugging
 
 **Help: the percentages don't sum to 100%!**
 
