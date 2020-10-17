@@ -24,7 +24,7 @@ def run_weighting_iteration(df, census='US', weigh_on=[], verbose=True):
     all_weights = {}
 
     if 'weight' not in df.columns:
-        df['weight'] = df[df.columns[0]].transform(lambda x: 1)
+        df.loc[:, 'weight'] = df[df.columns[0]].transform(lambda x: 1)
     
     census_data = get_census(census)
 
@@ -39,7 +39,7 @@ def run_weighting_iteration(df, census='US', weigh_on=[], verbose=True):
                     
                 data = census_data[var]
                 counts = df[var].value_counts(normalize=True)
-                missing_keys = list(set(df[var].unique()) - set(data.keys()))
+                missing_keys = list(set(counts.keys()) - set(data.keys()))
                 if missing_keys:
                     data = pd.concat((pd.Series(data) * (1 - counts[missing_keys].sum()),
                                       counts[missing_keys]))
@@ -83,7 +83,7 @@ def run_weighting_iteration(df, census='US', weigh_on=[], verbose=True):
 
 
 def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
-    df['weight'] = df['age'].transform(lambda x: 1)
+    df.loc[:, 'weight'] = df['age'].transform(lambda x: 1)
     iterx = 1
     weights = None
     last_var = None
@@ -106,8 +106,8 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
                     print('ITER 1/{} - initialization - ERROR {}'.format(iterx, iters, var, total_error))
 
                 weights = output['weights']
-                df['weight'] = df['weight'] * df[var].astype(str).replace(weights[var])
-                df['weight'] = normalize_weights(df['weight'])
+                df.loc[:, 'weight'] = df['weight'] * df[var].astype(str).replace(weights[var])
+                df.loc[:, 'weight'] = normalize_weights(df['weight'])
 
                 last_var = var
                 iterx += 1
@@ -126,8 +126,8 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
             print('-- REACHED LOCAL MINIMUM; EARLY TERMINATION')
             break
 
-        df['weight'] = df['weight'] * df[weigh_next].astype(str).replace(weights[weigh_next])
-        df['weight'] = normalize_weights(df['weight'])
+        df.loc[:, 'weight'] = df['weight'] * df[weigh_next].astype(str).replace(weights[weigh_next])
+        df.loc[:, 'weight'] = normalize_weights(df['weight'])
 
         output = run_weighting_iteration(df,
                                          census=census,
@@ -153,7 +153,7 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
                                                                              max_weight,
                                                                              min_weight))
     
-    df['weight'] = normalize_weights(df['weight'])
+    df.loc[:, 'weight'] = normalize_weights(df['weight'])
 
     return {'final_weights': df['weight'],
             'max_weight': max_weight,
