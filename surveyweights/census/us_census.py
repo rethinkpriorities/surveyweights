@@ -49,7 +49,7 @@ US_CENSUS = {'age': {'18-24': 0.1304,
 
              'gss_bible': {'Word of God': 0.31,
                            'Inspired word': 0.473,
-                           'Book of fables' 0.217}, # From GSS 2018 https://gssdataexplorer.norc.org/variables/364/vshow
+                           'Book of fables': 0.217}, # From GSS 2018 https://gssdataexplorer.norc.org/variables/364/vshow
 
              'gss_trust': {'Can trust': 0.331,
                            'Can\'t be too careful': 0.669 }, # From GSS 2018 https://gssdataexplorer.norc.org/variables/441/vshow

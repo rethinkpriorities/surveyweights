@@ -14,6 +14,11 @@ def get_census(census='US'):
         raise ValueError('{} census not found'.format(census))
 
 
+def normalize_weights(weights):
+    drift = weights.sum() / len(weights)
+    return weights * (1 / drift)
+
+
 def run_weighting_iteration(df, census='US', weigh_on=[], verbose=True):
     errors = []
     all_weights = {}
@@ -41,11 +46,7 @@ def run_weighting_iteration(df, census='US', weigh_on=[], verbose=True):
                     data = dict(data)
 
                 prior_weight = df.groupby(var)['weight'].mean()
-                weights = pd.Series(data) / (counts * prior_weight)
-
-                drift = df[var].replace(weights).sum() / df.shape[0]
-                correction = 1 / drift
-                weights *= correction
+                weights = normalize_weights(pd.Series(data) / (counts * prior_weight))
                 
                 if verbose:
                     print(weights)
@@ -98,15 +99,15 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
                                                  census=census,
                                                  weigh_on=weigh_on,
                                                  verbose=(verbose >= 2))
+
                 total_error = output['total_error']
+
                 if not weights and verbose >= 1:
                     print('ITER 1/{} - initialization - ERROR {}'.format(iterx, iters, var, total_error))
+
                 weights = output['weights']
                 df['weight'] = df['weight'] * df[var].astype(str).replace(weights[var])
-
-                drift = df['weight'].sum() / df.shape[0]
-                correction = 1 / drift
-                df['weight'] *= correction
+                df['weight'] = normalize_weights(df['weight'])
 
                 last_var = var
                 iterx += 1
@@ -124,15 +125,21 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
         if weigh_next == last_var:
             print('-- REACHED LOCAL MINIMUM; EARLY TERMINATION')
             break
+
         df['weight'] = df['weight'] * df[weigh_next].astype(str).replace(weights[weigh_next])
+        df['weight'] = normalize_weights(df['weight'])
+
         output = run_weighting_iteration(df,
                                          census=census,
                                          weigh_on=weigh_on,
                                          verbose=(verbose >= 2))
+
         weights = output['weights']
         total_error = output['total_error']
+
         last_var = weigh_next
         iterx += 1
+
         if verbose >= 1:
             print('ITER {}/{} - weight {} - ERROR {}'.format(iterx,
                                                              iters,
@@ -146,6 +153,8 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
                                                                              max_weight,
                                                                              min_weight))
     
+    df['weight'] = normalize_weights(df['weight'])
+
     return {'final_weights': df['weight'],
             'max_weight': max_weight,
             'min_weight': min_weight,
