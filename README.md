@@ -26,6 +26,7 @@ print(survey_data['outcome'].value_counts(normalize=True) * 100)
 print(survey_data['outcome'].value_counts(normalize=True) * survey_data.groupby('outcome')['weight'].mean() * 100)
 ```
 
+
 ### Debugging
 
 **Help: the percentages don't sum to 100%!**
@@ -45,4 +46,9 @@ df['weight'] = nomalize_weights(df['weight'])
 # Look at weighted data (it is now fixed and still representative!)
 print(subset_df[var].value_counts(normalize=True) * subset_df.groupby(var)['weight'].mean() * 100)
 ```
+
+
+### Installation
+
+`pip3 install surveyweights`
 
