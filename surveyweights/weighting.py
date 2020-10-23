@@ -86,7 +86,7 @@ def run_weighting_iteration(df, census='US', weigh_on=[], verbose=True):
             'total_error': total_error}
 
 
-def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
+def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], early_terminate=True, verbose=1):
     df.loc[:, 'weight'] = df['age'].transform(lambda x: 1)
     iterx = 1
     weights = None
@@ -126,7 +126,7 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], verbose=1):
     
     for i in range(iters - iterx):
         weigh_next = list(output['error_table'].keys())[0]
-        if weigh_next == last_var:
+        if weigh_next == last_var and early_terminate:
             print('-- REACHED LOCAL MINIMUM; EARLY TERMINATION')
             break
 
