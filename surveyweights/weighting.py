@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from surveyweights.census.us_census import US_CENSUS, US_CA_CENSUS
+from surveyweights.census.us_census import US_CENSUS, US_CA_CENSUS, US_TX_CENSUS
 from surveyweights.census.uk_census import UK_CENSUS
 
 
@@ -10,6 +10,8 @@ def get_census(census='US'):
         return US_CENSUS
     if census == 'US_CA':
         return US_CA_CENSUS
+    if census == 'US_TX':
+        return US_TX_CENSUS
     elif census == 'UK':
         return UK_CENSUS
     else:
