@@ -58,6 +58,39 @@ US_CENSUS = {'age': {'18-24': 0.1304,
                               'Disagree': 0.323}} # From GSS 2018 https://gssdataexplorer.norc.org/trends/Gender%20&%20Marriage?measure=spanking
 
 
+US_CA_CENSUS = {'age': {'18-24': 0.136,
+                        '25-44': 0.434,
+                        '45-64': 0.282,
+                        '65+': 0.147}, # Age 2018 US Census https://www.infoplease.com/us/census/california/demographic-statistics
+
+             'education': {'Completed graduate school': 0.13,
+                           'Graduated from college': 0.298,
+                           'Some college, no degree': 0.206,
+                           'Graduated from high school': 0.206,
+                           'Less than high school': 0.16}, # Education from https://www.statista.com/statistics/306963/educational-attainment-california
+
+             'gender': {'Female': 0.499,
+                        'Male': 0.495,
+                        'Other': 0.006}, # Male-Female from 2018 US Census, other from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5227946/
+
+             'income': {'Under $15,000': 0.106,
+                        'Between $15,000 and $49,999': 0.2955,
+                        'Between $50,000 and $74,999': 0.1652,
+                        'Between $75,000 and $99,999': 0.1210,
+                        'Between $100,000 and $150,000': 0.1523,
+                        'Over $150,000': 0.1597}, # Income from https://statisticalatlas.com/state/California/Household-Income
+
+             'race': {'White or Caucasian': 0.3664,
+                      'Asian or Asian American': 0.1452,
+                      'Black or African American': 0.0551,
+                      'Hispanic or Latino': 0.3929,
+                      'Other': 0.0404}, # Race from 2018 Census estimates https://en.wikipedia.org/wiki/File:Ethic_California_Organized_Pie.png
+
+             'vote2016': {'Hillary Clinton': 0.6173,
+                          'Donald Trump': 0.3162,
+                          'Other': 0.0665}} # 2016 US election popular vote as recorded by Wikipedia https://en.wikipedia.org/wiki/2016_United_States_presidential_election_in_California
+
+
 US_REGIONS_MAP = {'Midwest': ['Illinois', 'Indiana', 'Iowa', 'Michigan', 'Minnesota',
                               'Ohio', 'Pennsylvania', 'Wisconsin'],
                   'Mountains': ['Alaska', 'Idaho', 'Kansas', 'Montana', 'Nebraska',
