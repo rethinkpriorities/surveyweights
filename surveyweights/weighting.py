@@ -6,6 +6,8 @@ from surveyweights.census.uk_census import UK_CENSUS
 
 
 def get_census(census='US'):
+    if isinstance(census, dict):
+        return census
     if census == 'US':
         return US_CENSUS
     if census == 'US_CA':
