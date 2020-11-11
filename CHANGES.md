@@ -1,3 +1,7 @@
+## v0.3
+
+* Fixed a bug where `max_weight` and `min_weight` would not be populated if `verbose=False`
+
 ## v0.2
 
 * California census data can be accessed via `census='US_CA'`

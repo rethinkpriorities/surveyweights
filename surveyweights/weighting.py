@@ -152,9 +152,9 @@ def run_weighting_scheme(df, iters=10, census='US', weigh_on=[], early_terminate
                                                              weigh_next,
                                                              total_error))
         
+    max_weight = df['weight'].max()
+    min_weight = df['weight'].min()
     if verbose >= 1:
-        max_weight = df['weight'].max()
-        min_weight = df['weight'].min()
         print('Done - FINAL ERROR {} - MAX WEIGHT {} - MIN WEIGHT {}'.format(total_error,
                                                                              max_weight,
                                                                              min_weight))
