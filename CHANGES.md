@@ -1,5 +1,6 @@
 ## v0.3
 
+* `get_census` can now be used to view the census data.
 * Fixed a bug where `max_weight` and `min_weight` would not be populated if `verbose=False`
 
 ## v0.2
