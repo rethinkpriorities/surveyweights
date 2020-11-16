@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
      name='surveyweights',  
-     version='0.2',
+     version='0.3',
      author='Peter Hurford',
      author_email='peter@peterhurford.com',
      description='Apply Census weighting to survey data',
