@@ -44,6 +44,10 @@ def run_weighting_iteration(df, census='US', weigh_on=[], verbose=True):
                     print('## {} ##'.format(var))
                     
                 data = census_data[var]
+
+                if df[var].isna().sum() > 0:
+                    raise ValueError('{} contains NAs which are not allowed for weighting. Please impute or replace with an explicit NA value.'.format(var))
+
                 counts = df[var].value_counts(normalize=True)
                 missing_keys = list(set(counts.keys()) - set(data.keys()))
                 if missing_keys:
