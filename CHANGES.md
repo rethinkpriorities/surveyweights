@@ -1,3 +1,7 @@
+## v0.4
+
+* Fixed a bug where NAs in the dataset would make the package crash. Now it raises an error message.
+
 ## v0.3
 
 * `get_census` can now be used to view the census data.
