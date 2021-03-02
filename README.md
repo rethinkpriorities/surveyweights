@@ -33,11 +33,6 @@ print(survey_data['outcome'].value_counts(normalize=True) * survey_data.groupby(
 
 If you subset the dataset, you subset the weights too and they will no longer work for the subsetted dataset. To fix this, use `nomalize_weights`:
 
-**Help! Re-running changes my results!**
-
-The results should be deterministic, so re-running should not affect results. However, the weights still might be unstable and running the same weights in a different order could affect results. To fix this, try increasing the number of iterations and turning off early termination. Also, keep in mind that fluctuations of ~0.1 percentage point could be very normal - potentially a larger fluctuation for very small sample sizes.
-
-
 ```Python
 # Subset df
 subset_df = df[df[var] == subset]
@@ -51,6 +46,10 @@ df['weight'] = nomalize_weights(df['weight'])
 # Look at weighted data (it is now fixed and still representative!)
 print(subset_df[var].value_counts(normalize=True) * subset_df.groupby(var)['weight'].mean() * 100)
 ```
+
+**Help! Re-running changes my results!**
+
+The results should be deterministic, so re-running should not affect results. However, the weights still might be unstable and running the same weights in a different order could affect results. To fix this, try increasing the number of iterations and turning off early termination. Also, keep in mind that fluctuations of ~0.1 percentage point could be very normal - potentially a larger fluctuation for very small sample sizes.
 
 
 ### Installation
