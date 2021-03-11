@@ -47,6 +47,21 @@ df['weight'] = nomalize_weights(df['weight'])
 print(subset_df[var].value_counts(normalize=True) * subset_df.groupby(var)['weight'].mean() * 100)
 ```
 
+**Help! The percentages still don't sum to 100% and I used `normalize_weights`!**
+
+Another issue might be missing values. Try removing those.
+
+```Python
+df = df.dropna() # Remove NAs
+df['weight'] = nomalize_weights(df['weight']) # Normalize weights
+
+# Look at weighted data (it is now fixed and still representative!)
+print(subset_df[var].value_counts(normalize=True) * subset_df.groupby(var)['weight'].mean() * 100)
+```
+
+Note that you may prefer to drop NAs just for particular columns of interest, or you may prefer to impute NAs with a particular value.
+
+
 **Help! Re-running changes my results!**
 
 The results should be deterministic, so re-running should not affect results. However, the weights still might be unstable and running the same weights in a different order could affect results. To fix this, try increasing the number of iterations and turning off early termination. Also, keep in mind that fluctuations of ~0.1 percentage point could be very normal - potentially a larger fluctuation for very small sample sizes.

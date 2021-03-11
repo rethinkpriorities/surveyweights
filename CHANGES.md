@@ -1,3 +1,5 @@
+## v0.5
+
 ## v0.4
 
 * Fixed a bug where NAs in the dataset would make the package crash. Now it raises an error message.
