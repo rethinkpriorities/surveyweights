@@ -1,5 +1,7 @@
 ## v0.5
 
+* Adds `vote2020` to the list of weights for the US national census.
+
 ## v0.4
 
 * Fixed a bug where NAs in the dataset would make the package crash. Now it raises an error message.

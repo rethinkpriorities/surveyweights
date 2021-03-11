@@ -43,6 +43,10 @@ US_CENSUS = {'age': {'18-24': 0.1304,
                           'Donald Trump': 0.461,
                           'Other': 0.057}, # 2016 US election popular vote as recorded by Wikipedia https://en.wikipedia.org/wiki/2016_United_States_presidential_election
 
+             'vote2020': {'Joe Biden': 0.513,
+                          'Donald Trump': 0.469,
+                          'Other': 0.018}, # 2020 US election popular vote as recorded by Wikipedia https://en.wikipedia.org/wiki/2020_United_States_presidential_election
+
              'left_right': {'Liberal': 0.35,  # Sienna College / NYT poll <https://int.nyt.com/data/documenttools/nyt-siena-poll-methodology-june-2020/f6f533b4d07f4cbe/full.pdf>
                             'Moderate': 0.26,
                             'Conservative': 0.30},
