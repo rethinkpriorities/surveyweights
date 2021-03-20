@@ -47,7 +47,7 @@ df['weight'] = nomalize_weights(df['weight'])
 print(subset_df[var].value_counts(normalize=True) * subset_df.groupby(var)['weight'].mean() * 100)
 ```
 
--
+~
 
 **Help! The percentages still don't sum to 100% and I used `normalize_weights`!**
 
@@ -64,7 +64,7 @@ print(subset_df[var].value_counts(normalize=True) * subset_df.groupby(var)['weig
 Note that you may prefer to drop NAs just for particular columns of interest, or you may prefer to impute NAs with a particular value.
 
 
--
+~
 
 **Help! Re-running changes my results!**
 
