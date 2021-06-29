@@ -1,3 +1,7 @@
+## v0.6
+
+* Adds `vote_brexit` (2016 Brexit vote), `income`, `education`, and `region` to the list of weights for the UK census.
+
 ## v0.5
 
 * Adds `vote2020` to the list of weights for the US national census.
