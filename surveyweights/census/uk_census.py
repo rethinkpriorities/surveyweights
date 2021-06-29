@@ -11,13 +11,6 @@ UK_CENSUS = {'age': {'18-24': 0.094,
                      '70-74': 0.039,
                      '75+': 0.078}, # https://www.ethnicity-facts-figures.service.gov.uk/uk-population-by-ethnicity/demographics/age-groups/latest
 
-             # TODO:
-             # 'education': {'Completed graduate school': 0.1204,
-             #               'Graduated from college': 0.2128,
-             #               'Some college, no degree': 0.2777,
-             #               'Graduated from high school': 0.2832,
-             #               'Less than high school': 0.1060}, # Education from 2019 ACS https://www.census.gov/data/tables/2019/demo/educational-attainment/cps-detailed-tables.html
-
              'education': {'No qualifications': 0.23,
                            'Level 1 qualifications': 0.14,
                            'Level 2 qualifications': 0.15,
