@@ -44,11 +44,13 @@ UK_CENSUS = {'age': {'18-24': 0.094,
                         '£70,000 to £100,000': 0.04,
                         'More than £100,000': 0.03},
 
-             'vote_brexit': {'Remain': 0.4811,
-                             'Leave': 0.5189}, # https://en.wikipedia.org/wiki/2016_United_Kingdom_European_Union_membership_referendum
+             'vote_brexit': {'Remain': 0.3474,
+                             'Leave': 0.3747,
+			     'Did not vote': 0.2779}, # https://en.wikipedia.org/wiki/2016_United_Kingdom_European_Union_membership_referendum
 
-             'vote2019': {'Conservative': 0.436,
-                          'Labour': 0.321,
-                          'SNP': 0.039, 
-                          'Lib Dem': 0.116,
-                          'Other': 0.088}} # 2019 UK election popular vote as recorded by Wikipedia https://en.wikipedia.org/wiki/2019_United_Kingdom_general_election
+             'vote2019': {'Conservative': 0.2934,
+                          'Labour': 0.2160,
+                          'SNP': 0.0262, 
+                          'Lib Dem': 0.0781,
+                          'Other': 0.0592,
+			  'Did not vote': 0.3271}} # 2019 UK election popular vote as recorded by Wikipedia https://en.wikipedia.org/wiki/2019_United_Kingdom_general_election
